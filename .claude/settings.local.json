@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(mkdir -p notebooks scripts output logs scraping)",
+      "Bash(mv engine_lab_data_processing.ipynb notebooks/)",
+      "Bash(mv parse_engine_lab.py scripts/)",
+      "Bash(mv websearch_test.py scripts/)",
+      "Bash(mv engine_lab_filtered.csv engine_lab_filtered.xlsx engine_lab_output.csv engine_lab_output.xlsx output/)",
+      "Bash(pip install:*)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(jupyter nbconvert *)",
+      "Bash(git check-ignore *)"
+    ]
+  }
+}
