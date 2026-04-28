@@ -8,7 +8,7 @@ The pipeline converts raw proprietary project-index PDFs into a scored, enriched
 
 ## Dataset Origin
 
-The raw data comes from **Engine Lab** — a proprietary construction project intelligence database. VEIR receives periodic exports as two parallel sets of PDFs:
+The raw data comes from **IRR** — a proprietary construction project intelligence database. VEIR receives periodic exports as two parallel sets of PDFs:
 
 | File pattern | Content |
 |---|---|
