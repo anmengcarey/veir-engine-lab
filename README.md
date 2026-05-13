@@ -145,12 +145,62 @@ Joins `engine_lab_filtered.csv` and `project_enriched.csv` on the primary key co
 
 ---
 
+## Step 5 — V2 Attribute Corrections (`scripts/reprocess_excel.py`)
+
+Applies a set of post-review corrections to `project_joined.xlsx` based on VEIR manager feedback, producing `output/project_joined_v2.xlsx` (554 rows × 63 columns). Corrections include:
+
+- Recalculated `time_to_power_months` using `Completion` date (100% coverage) instead of `Kick-Off + Duration` (only 57% coverage)
+- Recomputed `whitespace_power_density_w_sqft` using per-phase new building size (not cumulative campus whitespace)
+- Labor cost scores (`labor_cost_burden_score`) compressed from raw LLM range [2, 9] to [4, 7] to avoid overstating state-level differences
+- Three attributes dropped per VEIR review: `power_infra_disaggregation_score`, `future_readiness_pressure_score`, `baseline_distribution_loss_mwh`
+
+See `Data_Changes_Summary.md` for a full change log.
+
+---
+
+## Step 6 — Scoring & Ranking (`scripts/score_projects.py`)
+
+Reads `project_joined_v2.xlsx` and produces `output/project_scored.xlsx` — the final ranked output used for GTM prioritization.
+
+### Two independent models
+
+| Model | Product line | Primary signal |
+|---|---|---|
+| **Indoor** | In-building power distribution | Whitespace density, congestion, labor savings |
+| **Underground** | Campus-level cable routing | Campus density, land constraints, permitting |
+
+The Indoor model is the primary deliverable. Underground is a secondary lens.
+
+### Normalization
+
+All attributes are normalized to 0–10 using **percentile rank** across all 554 projects before weights are applied. For `time_to_power_months` the score is inverted (lower months → higher score).
+
+### Weights
+
+Derived directly from VEIR's Review sheet ratings: High = 1.0, Med = 0.5, Low = 0.2. See `Scoring_Model_Methodology.md` for the full weight table and rationale.
+
+### Output sheets in `project_scored.xlsx`
+
+| Sheet | Contents |
+|---|---|
+| Indoor Ranking | All 554 projects ranked by Indoor score |
+| Underground Ranking | All 554 projects ranked by Underground score |
+| Top 20 Indoor | Top 20 by Indoor score |
+| Top 20 Underground | Top 20 by Underground score |
+| Top 20 Unique Campuses | Top 20 deduplicated by campus |
+| Weight Reference | Complete attribute weight table |
+| Calibration Check | 7 VEIR-highlighted projects with scores and ranks |
+
+Yellow highlighting = VEIR-highlighted projects (visible in all ranking sheets).
+
+---
+
 ## Setup
 
 **Requirements:** Python 3.9+
 
 ```bash
-pip install pandas openpyxl pdfplumber python-dotenv openai scikit-learn numpy
+pip install pandas openpyxl pdfplumber python-dotenv openai scikit-learn numpy markdown weasyprint
 ```
 
 **Environment:**
@@ -179,6 +229,12 @@ python scripts/enrich_gtm.py
 
 # 4. Final join → project_joined.csv / .xlsx
 #    Open and run: notebooks/join_filtered_enriched.ipynb
+
+# 5. Apply v2 corrections → project_joined_v2.xlsx
+python scripts/reprocess_excel.py
+
+# 6. Score and rank → project_scored.xlsx
+python scripts/score_projects.py
 ```
 
 ---
@@ -191,17 +247,24 @@ veir-engine-lab/
 ├── scripts/
 │   ├── parse_engine_lab.py        # PDF parser (step 1)
 │   ├── enrich_gtm.py              # Enrichment pipeline (step 3)
+│   ├── reprocess_excel.py         # V2 attribute corrections (step 5)
+│   ├── score_projects.py          # Scoring & ranking model (step 6)
+│   ├── md_to_pdf.py               # Converts methodology doc to PDF
 │   └── websearch_test.py          # Verifies OpenAI web search access
 ├── notebooks/
 │   ├── engine_lab_data_processing.ipynb   # EDA + filtering + imputation (step 2)
 │   └── join_filtered_enriched.ipynb       # Final join (step 4)
-├── output/                        # Generated CSVs and XLSX files (not in git)
+├── output/                        # Generated files (not in git)
 │   ├── engine_lab_output.csv      # Raw parsed output (1,048 rows)
 │   ├── engine_lab_filtered.csv    # After filtering (554 rows)
 │   ├── project_enriched.csv       # LLM-enriched variables
 │   ├── project_joined.csv         # Final joined dataset
-│   ├── city_state_lookup.csv      # Geo scores cache
-│   └── variable_definitions.md   # Auto-generated variable reference
+│   ├── project_joined_v2.xlsx     # V2 corrected dataset (554 rows × 63 cols)
+│   ├── project_scored.xlsx        # Final ranked output (7 sheets)
+│   ├── labor_cost_checkpoint.json # LLM labor scores cache (24 states)
+│   └── city_state_lookup.csv      # Geo scores cache
+├── Data_Changes_Summary.md        # V2 correction change log
+├── Scoring_Model_Methodology.md   # Full model documentation
 ├── logs/                          # Script run logs (not in git)
 ├── .env                           # Local secrets — never committed
 ├── .env.example                   # Template for required env vars
