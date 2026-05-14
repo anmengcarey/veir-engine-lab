@@ -24,7 +24,6 @@ env/
 
 # Data & output (often large or sensitive)
 data/
-output/
 logs/
 
 # OS

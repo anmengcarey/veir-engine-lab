@@ -1,0 +1,146 @@
+{
+  "Texas": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 4.5,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and no state prevailing wage law; right-to-work state."
+  },
+  "Utah": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 3.7,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of state prevailing wage laws contribute to a moderate labor cost burden."
+  },
+  "Indiana": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 8.0,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws reduce labor cost burden."
+  },
+  "Illinois": {
+    "labor_cost_burden_score": 8.0,
+    "union_density_pct": 12.8,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws lead to higher labor costs."
+  },
+  "Nevada": {
+    "labor_cost_burden_score": 7.5,
+    "union_density_pct": 12.4,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws increase labor costs."
+  },
+  "Virginia": {
+    "labor_cost_burden_score": 7.5,
+    "union_density_pct": 10.7,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws contribute to elevated labor costs."
+  },
+  "Ohio": {
+    "labor_cost_burden_score": 8.0,
+    "union_density_pct": 12.1,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws contribute to elevated labor costs."
+  },
+  "Georgia": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 5.6,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of state prevailing wage laws reduce labor cost burden."
+  },
+  "California": {
+    "labor_cost_burden_score": 9.0,
+    "union_density_pct": 15.4,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws lead to elevated labor costs."
+  },
+  "Pennsylvania": {
+    "labor_cost_burden_score": 8.0,
+    "union_density_pct": 12.9,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High union density and strong prevailing wage laws contribute to elevated labor costs."
+  },
+  "Arizona": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 3.7,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws reduce labor cost burden."
+  },
+  "Arkansas": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 3.5,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws result in lower labor costs."
+  },
+  "Louisiana": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 4.3,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of state prevailing wage laws contribute to a moderate labor cost burden."
+  },
+  "Wyoming": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 5.6,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "Low union density and strong prevailing wage laws contribute to moderate labor cost burden."
+  },
+  "Wisconsin": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 7.4,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws reduce labor cost burden."
+  },
+  "Minnesota": {
+    "labor_cost_burden_score": 8.0,
+    "union_density_pct": null,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "High prevailing wages and strong prevailing wage laws indicate significant labor cost burden."
+  },
+  "Missouri": {
+    "labor_cost_burden_score": 4.0,
+    "union_density_pct": 9.3,
+    "prevailing_wage_law": "strong",
+    "labor_cost_burden_explanation": "Missouri has strong prevailing wage laws and moderate union density, leading to moderate labor cost burden."
+  },
+  "North Dakota": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 9.0,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws contribute to a lower labor cost burden."
+  },
+  "Alabama": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 7.5,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws contribute to lower labor costs."
+  },
+  "North Carolina": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 3.6,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws contribute to a lower labor cost burden score."
+  },
+  "Kansas": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 6.3,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws reduce labor cost burden."
+  },
+  "Iowa": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": null,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Iowa lacks prevailing wage laws and has low union density, leading to lower labor costs."
+  },
+  "Mississippi": {
+    "labor_cost_burden_score": 2.0,
+    "union_density_pct": 4.2,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of prevailing wage laws reduce labor cost burden."
+  },
+  "Oklahoma": {
+    "labor_cost_burden_score": 3.0,
+    "union_density_pct": 6.1,
+    "prevailing_wage_law": "none",
+    "labor_cost_burden_explanation": "Low union density and absence of state prevailing wage laws reduce labor cost burden."
+  }
+}

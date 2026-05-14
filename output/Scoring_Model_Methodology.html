@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>VEIR GTM Ranking Model — Methodology &amp; Weight Reference</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="-" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">VEIR GTM Ranking Model — Methodology &amp; Weight
+Reference</h1>
+</header>
+<h1 id="veir-gtm-ranking-model-methodology-weight-reference">VEIR GTM
+Ranking Model — Methodology &amp; Weight Reference</h1>
+<p><strong>Version:</strong> project_scored.xlsx (v2 model)
+<strong>Prepared for:</strong> VEIR internal review / commercial team
+presentation</p>
+<hr />
+<h2 id="purpose">1. Purpose</h2>
+<p>This model ranks 554 large-scale U.S. data center construction
+projects to identify the <strong>top 10–20 highest-priority
+targets</strong> for VEIR’s commercial engagement. Projects are scored
+on how well they fit VEIR’s value proposition as a superconducting cable
+provider.</p>
+<p><strong>Starting universe:</strong> 1,048 raw Engine Lab projects
+<strong>Filter criteria applied:</strong> - Capacity ≥ 60 MW (large
+enough for VEIR’s product to be relevant) - Kick-off date ≤ 2036
+(actionable within planning horizon) - No extreme historical schedule
+slippage</p>
+<p><strong>Remaining:</strong> 554 projects across 24 U.S. states</p>
+<hr />
+<h2 id="two-scoring-models-why">2. Two Scoring Models — Why</h2>
+<p>VEIR sells into <strong>two distinct deployment
+environments</strong>, each governed by different engineering
+constraints and thus different project attributes:</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Model</th>
+<th>Product Line</th>
+<th>What it measures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Indoor</strong></td>
+<td>In-building power distribution cables</td>
+<td>How power-dense and congested is the whitespace <em>inside</em> the
+building?</td>
+</tr>
+<tr>
+<td><strong>Underground</strong></td>
+<td>Campus-level external cable routing</td>
+<td>How large, complex, and costly is the <em>campus</em> power
+infrastructure outside the building?</td>
+</tr>
+</tbody>
+</table>
+<p>The two models are scored <strong>independently</strong> — no
+cross-pollination. An attribute rated only for one model is fully
+excluded from the other. This separation was confirmed by VEIR (per
+Priyanshi’s email: inside-weighted is the primary product; underground
+is secondary/nice-to-have ranking).</p>
+<p>The <strong>Indoor model is the primary deliverable.</strong> The
+Underground model is a secondary lens.</p>
+<hr />
+<h2 id="attributes-weights-and-rationale">3. Attributes, Weights, and
+Rationale</h2>
+<p>Weights derive directly from VEIR’s Review sheet ratings:</p>
+<table>
+<thead>
+<tr>
+<th>Review Rating</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>High/Med</td>
+<td>0.75</td>
+</tr>
+<tr>
+<td>Med</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Med/Low</td>
+<td>0.35</td>
+</tr>
+<tr>
+<td>Low</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>— (not rated)</td>
+<td>0.0 (excluded)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="timing">3.1 Timing</h3>
+<h4
+id="time_to_power_months-indoor-high-1.0-underground-high-1.0"><code>time_to_power_months</code>
+— <strong>Indoor: High (1.0) | Underground: High (1.0)</strong></h4>
+<p><strong>What it is:</strong> Months from today (April 2026) to the
+project’s projected completion date.</p>
+<p><strong>Why it matters:</strong> VEIR is at an early commercial
+stage. Projects energizing sooner give VEIR less time to get into the
+conversation — making them <em>more urgent to engage now</em>. Score is
+inverted (lower months → higher score).</p>
+<p><strong>Data source:</strong> <code>Completion</code> date column
+(100% coverage across all 554 projects). Earlier approach using Kick-Off
++ Duration was abandoned because 43% of projects had no Duration
+value.</p>
+<p><strong>Range:</strong> 47–143 months from April 2026.</p>
+<hr />
+<h3 id="power-density-inside-the-building">3.2 Power Density (Inside the
+Building)</h3>
+<h4
+id="whitespace_power_density_w_sqft-indoor-high-1.0-underground-excluded"><code>whitespace_power_density_w_sqft</code>
+— <strong>Indoor: High (1.0) | Underground: excluded</strong></h4>
+<p><strong>What it is:</strong> Watts per square foot of <em>this
+phase’s</em> new server floor space.</p>
+<p><strong>Why it matters:</strong> High density = high-performance
+compute (AI/GPU workloads). VEIR’s superconducting cables carry
+significantly more current per cable than conventional copper — making
+them most valuable in high-density deployments where you’d otherwise
+need many parallel conventional feeders.</p>
+<p><strong>Formula:</strong>
+<code>Project Capacity (MW) × 1,000,000 ÷ New Building Size (sqft)</code>
+Denominator is this phase’s new server floor only (not cumulative campus
+whitespace, which would dilute expansion phases).</p>
+<p><strong>Industry benchmark:</strong> Standard DCs ≈ 100–200 W/sqft;
+AI/GPU clusters ≈ 300–600+ W/sqft. Model median: <strong>246
+W/sqft</strong> (consistent with mixed workload dataset).</p>
+<h4
+id="whitespace_congestion_burden_score-indoor-low-0.2-underground-excluded"><code>whitespace_congestion_burden_score</code>
+— <strong>Indoor: Low (0.2) | Underground: excluded</strong></h4>
+<p><strong>What it is:</strong> A 0–10 composite score of how congested
+the whitespace is, accounting for power density, number of phases, and
+sector type.</p>
+<p><strong>Why it matters:</strong> High congestion means cable
+management becomes more difficult — which is exactly where VEIR’s
+high-ampacity cables (fewer cables needed) deliver measurable floor
+space savings. Weighted Low because this is partially captured by
+whitespace power density already.</p>
+<hr />
+<h3 id="campus-scale-outside-the-building">3.3 Campus Scale (Outside the
+Building)</h3>
+<h4
+id="campus_power_density_w_sqft-indoor-excluded-underground-high-1.0"><code>campus_power_density_w_sqft</code>
+— <strong>Indoor: excluded | Underground: High (1.0)</strong></h4>
+<p><strong>What it is:</strong> Total power across <em>all phases of the
+campus</em> divided by total campus footprint (sqft).</p>
+<p><strong>Why it matters:</strong> For underground cable routing, the
+full campus power load determines how many high-ampacity feeders are
+needed from the substation to the buildings. Higher campus density =
+more feeder congestion = greater benefit from VEIR’s cables.</p>
+<p><strong>Formula:</strong>
+<code>Sum of all phase capacities for this campus (MW) × 1,000,000 ÷ campus_sqft</code>
+Numerator uses umbrella-summed capacity (not just one phase).
+Denominator uses the clean <code>campus_sqft</code> field (computed from
+all phases + grey space ratios), not the raw Existing Building Size
+field which had data quality issues.</p>
+<h4
+id="campus_size_sqft-indoor-med-0.5-underground-med-0.5"><code>campus_size_sqft</code>
+— <strong>Indoor: Med (0.5) | Underground: Med (0.5)</strong></h4>
+<p><strong>What it is:</strong> Total physical footprint of the campus
+in square feet, including all building phases and grey space
+(mechanical, electrical, HVAC).</p>
+<p><strong>Why it matters:</strong> Larger campus = longer cable runs =
+more cable quantity = larger potential VEIR contract. Applies to both
+indoor and underground contexts.</p>
+<p><strong>Source:</strong> <code>campus_sqft</code>, computed in the
+pipeline using state-specific grey space ratios (18–25%).</p>
+<h4
+id="cable_multiplicity_burden_score-indoor-excluded-underground-low-0.2"><code>cable_multiplicity_burden_score</code>
+— <strong>Indoor: excluded | Underground: Low (0.2)</strong></h4>
+<p><strong>What it is:</strong> Estimated number of feeder cables needed
+based on total campus load and conventional cable ratings.</p>
+<p><strong>Why it matters:</strong> More feeders = greater complexity =
+bigger benefit from VEIR’s high-ampacity cables (fewer cables to run,
+trench, and terminate). Weighted Low because it correlates strongly with
+campus power density.</p>
+<h4
+id="resiliency_topology_complexity_score-indoor-excluded-underground-low-0.2"><code>resiliency_topology_complexity_score</code>
+— <strong>Indoor: excluded | Underground: Low (0.2)</strong></h4>
+<p><strong>What it is:</strong> How complex the campus power topology
+is, based on number of phases, expansion type, and campus size.</p>
+<p><strong>Why it matters:</strong> More complex topologies require more
+sophisticated cable routing solutions — a potential differentiator for
+VEIR. Weighted Low as a secondary signal.</p>
+<hr />
+<h3 id="commercial-viability">3.4 Commercial Viability</h3>
+<h4
+id="high_density_load_share_score-indoor-med-0.5-underground-med-0.5"><code>high_density_load_share_score</code>
+— <strong>Indoor: Med (0.5) | Underground: Med (0.5)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of how likely this owner runs
+AI/HPC/GPU workloads. Scored 10 for confirmed GPU cluster operators.</p>
+<p><strong>Why it matters:</strong> High-density compute workloads drive
+the power density trends that make VEIR’s cables most valuable. An owner
+already running AI workloads is also more likely to keep pushing density
+higher in future phases.</p>
+<p><strong>Method:</strong> LLM-scored via web search by owner name +
+sector type.</p>
+<h4
+id="foak_commercial_access_score-indoor-med-0.5-underground-med-0.5"><code>foak_commercial_access_score</code>
+— <strong>Indoor: Med (0.5) | Underground: Med (0.5)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of how open this owner is to
+buying from first-of-a-kind (FOAK) vendors like VEIR.</p>
+<p><strong>Why it matters:</strong> VEIR is not yet a tier-1 established
+vendor. Owners with a history of innovation pilots, novel vendor
+partnerships, or early-adopter procurement culture are far more likely
+to engage with VEIR at this stage.</p>
+<p><strong>Method:</strong> LLM-scored via web search by owner name +
+recent procurement news.</p>
+<h4
+id="customer_type_label-customer_type_score-indoor-med-0.5-underground-med-0.5"><code>customer_type_label</code>
+→ <code>customer_type_score</code> — <strong>Indoor: Med (0.5) |
+Underground: Med (0.5)</strong></h4>
+<p><strong>What it is:</strong> Owner classification: hyperscaler /
+neocloud / colo / enterprise / OEM.</p>
+<p><strong>Why it matters:</strong> VEIR’s current commercial stage is
+better suited for non-hyperscalers. Hyperscalers (AWS, Google, Meta,
+Microsoft) build their own infrastructure solutions and are extremely
+difficult to penetrate as a FOAK vendor. Non-hyperscalers
+(enterprise-owned DCs, colos, neocloud providers) have more standard
+procurement processes and greater openness to novel vendors.</p>
+<p><strong>Scoring method — binary:</strong></p>
+<pre><code>Non-hyperscaler (enterprise / neocloud / colo / OEM) → raw score 8
+Hyperscaler (AWS, Google, Meta, Microsoft, etc.)     → raw score 2</code></pre>
+<p>We deliberately do not sub-rank within non-hyperscaler categories
+(e.g., enterprise vs colo), because VEIR has not provided evidence that
+one non-hyperscaler type is meaningfully more accessible than another.
+The binary encoding faithfully captures VEIR’s stated preference without
+introducing unverified sub-hierarchies.</p>
+<p>After percentile normalization across the dataset, the effective
+score gap is: - Non-hyperscaler: ~7.0 / 10 - Hyperscaler: ~1.5 / 10</p>
+<hr />
+<h3 id="location-factors">3.5 Location Factors</h3>
+<h4
+id="permitting_burden_index-indoor-med-0.5-underground-high-1.0"><code>permitting_burden_index</code>
+— <strong>Indoor: Med (0.5) | Underground: High (1.0)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of how difficult local
+permitting is for large infrastructure in this jurisdiction.</p>
+<p><strong>Why it matters:</strong> High permitting burden = longer
+pre-construction window = more lead time for VEIR to enter the
+conversation. For underground cable routing (which involves trenching,
+civil work, and utility coordination), permitting is especially
+consequential.</p>
+<p><strong>Source:</strong> Geo-lookup by state and county, based on
+known permitting difficulty tiers.</p>
+<h4
+id="hv_mv_readiness_gap_score-indoor-excluded-underground-med-0.5"><code>hv_mv_readiness_gap_score</code>
+— <strong>Indoor: excluded | Underground: Med (0.5)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of the gap between existing
+grid infrastructure and what this data center requires.</p>
+<p><strong>Why it matters:</strong> A larger gap means more new HV/MV
+infrastructure must be built — more opportunity for VEIR to be specified
+into the design from the start, rather than retrofitting around existing
+conventional cable infrastructure.</p>
+<h4
+id="land_cost_proxy_score-indoor-med-0.5-underground-highmed-0.75"><code>land_cost_proxy_score</code>
+— <strong>Indoor: Med (0.5) | Underground: High/Med (0.75)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of industrial land cost in
+the area.</p>
+<p><strong>Why it matters:</strong> High land cost = higher economic
+pressure to use space efficiently. VEIR’s cables occupy less conduit
+space and fewer cable trays than conventional copper, making
+land-efficient cable routing more valuable in expensive markets.</p>
+<h4
+id="buildable_land_constraint_score-indoor-medlow-0.35-underground-highmed-0.75"><code>buildable_land_constraint_score</code>
+— <strong>Indoor: Med/Low (0.35) | Underground: High/Med
+(0.75)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of how constrained
+developable land is near the project.</p>
+<p><strong>Why it matters:</strong> Land-constrained sites have less
+room for wide cable routing corridors and underground trenching — making
+high-ampacity, space-efficient cables like VEIR’s more attractive.
+Higher weight for underground because physical routing constraints are
+most acute outside the building.</p>
+<h4
+id="labor_cost_burden_score-indoor-high-1.0-underground-high-1.0"><code>labor_cost_burden_score</code>
+— <strong>Indoor: High (1.0) | Underground: High (1.0)</strong></h4>
+<p><strong>What it is:</strong> 0–10 score of how burdensome
+construction labor is in each state, based on: - Construction sector
+union density (%) - State prevailing wage law strength (strong /
+moderate / none)</p>
+<p><strong>Why it matters:</strong> VEIR’s superconducting cables have
+significantly higher ampacity than conventional copper — meaning
+<strong>fewer cables</strong> are needed to deliver the same power.
+Fewer cables = fewer cable pulls = fewer labor hours. In high-union,
+high-prevailing-wage states, each avoided cable pull saves substantially
+more money. This makes VEIR’s labor cost savings argument strongest in
+states like California, Illinois, Pennsylvania, and Virginia.</p>
+<p><strong>Method:</strong> LLM-scored per state via web search (24
+unique states, 24 API calls). Deduplicated by state to avoid redundant
+calls.</p>
+<p><strong>Score compression applied:</strong> Raw LLM scores ranged [2,
+9] — a 7-point spread that overstated the marginal difference between
+high-union and low-union states. Compressed linearly to [4, 7] to
+reflect that VEIR delivers labor savings in all markets, with a moderate
+(not extreme) scaling factor:</p>
+<pre><code>compressed = 4.0 + (raw − 2.0) / 7.0 × 3.0</code></pre>
+<p><strong>Key state values (post-compression):</strong></p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Raw Score</th>
+<th>Compressed</th>
+<th>Union Density</th>
+<th>Prevailing Wage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>California</td>
+<td>9.0</td>
+<td>7.0</td>
+<td>15.4%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Illinois</td>
+<td>8.0</td>
+<td>6.6</td>
+<td>12.8%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Ohio</td>
+<td>8.0</td>
+<td>6.6</td>
+<td>12.1%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Pennsylvania</td>
+<td>8.0</td>
+<td>6.6</td>
+<td>12.9%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Nevada</td>
+<td>7.5</td>
+<td>6.4</td>
+<td>12.4%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Virginia</td>
+<td>7.5</td>
+<td>6.4</td>
+<td>10.7%</td>
+<td>Strong</td>
+</tr>
+<tr>
+<td>Texas</td>
+<td>3.0</td>
+<td>4.4</td>
+<td>4.5%</td>
+<td>None (repealed 2021)</td>
+</tr>
+<tr>
+<td>Georgia</td>
+<td>3.0</td>
+<td>4.4</td>
+<td>5.6%</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Arizona</td>
+<td>3.0</td>
+<td>4.4</td>
+<td>3.7%</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="normalization-method">4. Normalization Method</h2>
+<p>All attributes are normalized to a <strong>0–10 scale using
+percentile rank</strong> before scoring:</p>
+<pre><code>normalized = percentile_rank(raw_value, across_554_projects) × 10</code></pre>
+<p><strong>Why percentile rank (not min-max normalization)?</strong> -
+Robust to outliers: one extreme outlier cannot compress all other scores
+into a tiny range - Distribution-agnostic: works equally well for skewed
+power-law data (e.g., whitespace density) and more normally distributed
+data (e.g., permitting scores) - Interpretable: a score of 7.0 means the
+project is in the 70th percentile for that attribute</p>
+<p>For <code>time_to_power_months</code> (lower = better), the score is
+<strong>inverted</strong> after normalization:</p>
+<pre><code>inverted_score = 10 − percentile_rank_score</code></pre>
+<p>So a project completing in 47 months (most urgent) gets a score close
+to 10.</p>
+<hr />
+<h2 id="weighted-scoring-formula">5. Weighted Scoring Formula</h2>
+<p>For each project, the final model score is a <strong>NaN-safe
+weighted average</strong> of normalized attribute scores:</p>
+<pre><code>Indoor Score = Σ (normalized_score_i × indoor_weight_i) / Σ indoor_weight_i</code></pre>
+<p>“NaN-safe” means: if a project is missing a value for an attribute
+(e.g., no LLM score was generated), that attribute is excluded from both
+the numerator and denominator for that project, rather than pulling its
+score toward zero.</p>
+<hr />
+<h2 id="indoor-model-weight-breakdown">6. Indoor Model — Weight
+Breakdown</h2>
+<p>Total weight sum: <strong>7.05</strong></p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Weight</th>
+<th>% of Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time to Power</td>
+<td>1.0</td>
+<td>14.2%</td>
+</tr>
+<tr>
+<td>Whitespace Power Density</td>
+<td>1.0</td>
+<td>14.2%</td>
+</tr>
+<tr>
+<td>Labor Cost Burden</td>
+<td>1.0</td>
+<td>14.2%</td>
+</tr>
+<tr>
+<td>High-Density Load Share</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>FOAK Commercial Access</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>Customer Type</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>Permitting Burden</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>Land Cost Proxy</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>Campus Size</td>
+<td>0.5</td>
+<td>7.1%</td>
+</tr>
+<tr>
+<td>Buildable Land Constraint</td>
+<td>0.35</td>
+<td>5.0%</td>
+</tr>
+<tr>
+<td>Whitespace Congestion</td>
+<td>0.2</td>
+<td>2.8%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>7.05</strong></td>
+<td><strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Excluded from Indoor model:</strong> Campus Power Density,
+HV/MV Readiness Gap, Cable Multiplicity, Resiliency Complexity (all
+Outside-only attributes)</p>
+<hr />
+<h2 id="underground-model-weight-breakdown">7. Underground Model —
+Weight Breakdown</h2>
+<p>Total weight sum: <strong>9.40</strong></p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Weight</th>
+<th>% of Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time to Power</td>
+<td>1.0</td>
+<td>10.6%</td>
+</tr>
+<tr>
+<td>Campus Power Density</td>
+<td>1.0</td>
+<td>10.6%</td>
+</tr>
+<tr>
+<td>Permitting Burden</td>
+<td>1.0</td>
+<td>10.6%</td>
+</tr>
+<tr>
+<td>Labor Cost Burden</td>
+<td>1.0</td>
+<td>10.6%</td>
+</tr>
+<tr>
+<td>Land Cost Proxy</td>
+<td>0.75</td>
+<td>8.0%</td>
+</tr>
+<tr>
+<td>Buildable Land Constraint</td>
+<td>0.75</td>
+<td>8.0%</td>
+</tr>
+<tr>
+<td>High-Density Load Share</td>
+<td>0.5</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td>FOAK Commercial Access</td>
+<td>0.5</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td>Customer Type</td>
+<td>0.5</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td>HV/MV Readiness Gap</td>
+<td>0.5</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td>Campus Size</td>
+<td>0.5</td>
+<td>5.3%</td>
+</tr>
+<tr>
+<td>Cable Multiplicity</td>
+<td>0.2</td>
+<td>2.1%</td>
+</tr>
+<tr>
+<td>Resiliency Complexity</td>
+<td>0.2</td>
+<td>2.1%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>9.40</strong></td>
+<td><strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Excluded from Underground model:</strong> Whitespace Power
+Density, Whitespace Congestion (Inside-only attributes)</p>
+<hr />
+<h2 id="calibration-7-veir-highlighted-projects">8. Calibration — 7
+VEIR-Highlighted Projects</h2>
+<p>VEIR’s manager identified 7 projects as appealing reference points.
+These were <strong>not used to train the model</strong> — they serve as
+a post-hoc validation check that the model’s logic aligns with VEIR’s
+commercial intuition.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th>Project</th>
+<th>State</th>
+<th>Customer Type</th>
+<th>Indoor Rank</th>
+<th>Indoor %ile</th>
+<th>Underground Rank</th>
+<th>Underground %ile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Springfield DC Expansion Bldg 5</td>
+<td>IL</td>
+<td>colo</td>
+<td>#22</td>
+<td>Top 4%</td>
+<td>#172</td>
+<td>Top 69%</td>
+</tr>
+<tr>
+<td>Amarillo (Project Matador) Bldg 13</td>
+<td>TX</td>
+<td>enterprise</td>
+<td>#44</td>
+<td>Top 8%</td>
+<td>#23</td>
+<td>Top 96%</td>
+</tr>
+<tr>
+<td>Sulpher Springs Matrix DC Bldg 28</td>
+<td>TX</td>
+<td>enterprise</td>
+<td>#81</td>
+<td>Top 15%</td>
+<td>#80</td>
+<td>Top 86%</td>
+</tr>
+<tr>
+<td>Evanston (Aspen Mountain) PH II Bldg 4</td>
+<td>WY</td>
+<td>hyperscaler</td>
+<td>#108</td>
+<td>Top 20%</td>
+<td>#288</td>
+<td>Top 52%</td>
+</tr>
+<tr>
+<td>Maxwell Caldwell Valley Bldg 10</td>
+<td>VA</td>
+<td>neocloud</td>
+<td>#131</td>
+<td>Top 24%</td>
+<td>#239</td>
+<td>Top 57%</td>
+</tr>
+<tr>
+<td>Taylorsville DC Campus Bldg 7</td>
+<td>UT</td>
+<td>colo</td>
+<td>#149</td>
+<td>Top 27%</td>
+<td>#189</td>
+<td>Top 66%</td>
+</tr>
+<tr>
+<td>Yorkville (Project Cardinal) Bldg 8</td>
+<td>IL</td>
+<td>enterprise</td>
+<td>#226</td>
+<td>Top 59%</td>
+<td>#46</td>
+<td>Top 92%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Summary:</strong> - Indoor average rank: <strong>109 / 554
+(top 20%)</strong> — highlighted projects cluster meaningfully in the
+upper quintile - 2 of 7 projects in Indoor top 50; 3 of 7 in Indoor top
+100 - Yorkville ranks low on Indoor (#226) but very high on Underground
+(#46) — reflecting its large campus profile with relatively standard
+whitespace density - Evanston (Aspen Mountain) is a hyperscaler, which
+correctly pulls it down in both models given VEIR’s commercial stage
+preference</p>
+<hr />
+<h2 id="attributes-excluded-from-final-model">9. Attributes Excluded
+from Final Model</h2>
+<p>Three attributes were dropped after VEIR manager review (rated
+Low/Drop):</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dropped Attribute</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>power_infra_disaggregation_score</code></td>
+<td>Redundant with campus density metrics; not clearly tied to VEIR
+value prop</td>
+</tr>
+<tr>
+<td><code>future_readiness_pressure_score</code></td>
+<td>sqft expansion ratio was not meaningful enough to differentiate
+projects</td>
+</tr>
+<tr>
+<td><code>baseline_distribution_loss_mwh</code></td>
+<td>Duration-scaled MWh figure was not actionable for GTM
+prioritization</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="output-files">10. Output Files</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>output/project_joined_v2.xlsx</code></td>
+<td>Full dataset: 554 projects × 63 attributes (source of truth)</td>
+</tr>
+<tr>
+<td><code>output/project_scored.xlsx</code></td>
+<td>Ranked output with 7 sheets (see below)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sheets in project_scored.xlsx:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Indoor Ranking</td>
+<td>All 554 projects ranked by Indoor score</td>
+</tr>
+<tr>
+<td>Underground Ranking</td>
+<td>All 554 projects ranked by Underground score</td>
+</tr>
+<tr>
+<td>Top 20 Indoor</td>
+<td>Top 20 by Indoor score</td>
+</tr>
+<tr>
+<td>Top 20 Underground</td>
+<td>Top 20 by Underground score</td>
+</tr>
+<tr>
+<td>Top 20 Unique Campuses</td>
+<td>Top 20 deduplicated by campus (one phase per campus)</td>
+</tr>
+<tr>
+<td>Weight Reference</td>
+<td>Complete attribute weight table</td>
+</tr>
+<tr>
+<td>Calibration Check</td>
+<td>7 VEIR-highlighted projects with scores and ranks</td>
+</tr>
+</tbody>
+</table>
+<p>Yellow highlighting = VEIR-highlighted projects (visible in all
+ranking sheets).</p>
+</body>
+</html>
